@@ -1,91 +1,123 @@
-# Simple Linear Regression Analysis
 
-This project demonstrates a simple linear regression analysis using Python, `matplotlib`, and `numpy`. It calculates the coefficients `w1` (slope) and `w0` (intercept) for a linear regression model and evaluates the model's performance using the R² score.
+```markdown
+# Linear Regression Model - Explanation of Formulas and Functions
 
-## Overview
+This Python script demonstrates a linear regression model to predict values based on a given dataset.
 
-The script performs the following tasks:
-
-1. **Data Visualization:** Plots the given data points as a scatter plot.
-2. **Linear Regression Calculation:** Computes the slope (`w1`) and intercept (`w0`) of the best-fit line using the least squares method.
-3. **Prediction:** Takes a user input for a new `x` value and predicts the corresponding `y` value using the calculated regression model.
-4. **Regression Line Plot:** Plots the calculated regression line along with the original data points.
-5. **R² Score Calculation:** Computes the R² score to assess the model's goodness of fit.
-6. **Mean Squared Error (MSE) Calculation:** Evaluates the model's average squared error.
-
-## Files
-
-- `main.py`: Contains the Python script for the linear regression analysis.
-- `README.md`: This file, providing project documentation.
-
-## Usage
-
-1. **Run the script:**
-
-    ```bash
-    python main.py
-    ```
-
-2. **Input:** The script will prompt you to enter an `x` value. Enter the desired value and press Enter.
-
-3. **Output:** The script will display the predicted `y` value and generate a plot showing the data points and the regression line. It will also print the R² score and MSE.
-
-## Code Explanation
-
-### Linear Regression Calculation
-
-The slope (`w1`) and intercept (`w0`) are calculated using the following formulas:
-
-- \( w1 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2} \)
-- \( w0 = \bar{y} - w1 \cdot \bar{x} \)
-
-Where:
-
-- \( x_i \) and \( y_i \) are the individual data points.
-- \( \bar{x} \) and \( \bar{y} \) are the means of the `x` and `y` values, respectively.
-
-### R² Score Calculation
-
-The R² score is calculated using the following formula:
-
-- \( R^2 = 1 - \frac{SSE}{SST} \)
-
-Where:
-
-- \( SSE = \sum (y_i - \hat{y}_i)^2 \) (Sum of Squared Errors)
-- \( SST = \sum (y_i - \bar{y})^2 \) (Total Sum of Squares)
-- \( \hat{y}_i \) is the predicted value of \( y_i \).
-
-### Mean Squared Error (MSE) Calculation
-
-The Mean Squared Error (MSE) is calculated as:
-
-\[
-MSE = \frac{1}{n} \sum (y_i - \hat{y}_i)^2
-\]
-
-It measures the average squared difference between actual and predicted values. A lower MSE indicates better model accuracy. For this model, the MSE is **18**, meaning the predictions deviate from actual values by roughly **\( \sqrt{18} \approx 4.24 \)** units on average.
-
-## Example
-
-Given the data points:
+## Imports
 
 ```python
-x = [153, 200, 140, 210, 170]
-y = [900, 923, 880, 930, 910]
+import matplotlib.pyplot as plt
+import numpy as np
+import math
 ```
 
-The script calculates the regression line and predicts a `y` value for a given `x` input. It also generates a plot and the R² score.
+- **matplotlib.pyplot** is used for plotting the data points and the regression line.
+- **numpy** is used for numerical operations such as creating arrays.
+- **math** is used to compute the square root of the Mean Squared Error (MSE).
 
-## R² Score Output Example
+## Data
 
-```
-The model is 92.20% accurate.
-```
-
-## MSE Output Example
-
-```
-Mean Squared Error: 18
+```python
+x = [140, 153, 170, 200, 210, 180, 160, 220, 230, 250, 240, 160, 180, 200, 190, 205, 215, 225, 235, 245]
+y = [880, 900, 910, 923, 930, 915, 905, 935, 940, 950, 945, 910, 920, 925, 915, 930, 935, 940, 950, 960]
 ```
 
+Here, `x` represents the prices, and `y` represents the corresponding sales.
+
+## Calculating the Means
+
+```python
+Xmean = sum(x) / len(x)
+Ymean = sum(y) / len(y)
+```
+
+- **Xmean**: The mean of `x` values.
+- **Ymean**: The mean of `y` values.
+
+## Calculating the Regression Coefficients (`w1` and `w0`)
+
+```python
+a = 0
+b = 0
+for i in range(len(x)):
+    a += (x[i] - Xmean) * (y[i] - Ymean)
+    b += (x[i] - Xmean) ** 2
+
+w1 = a / b
+w0 = Ymean - (w1 * Xmean)
+```
+
+- **w1**: The slope of the regression line, calculated using the formula:  
+  \[
+  w1 = \frac{\sum{(x_i - Xmean)(y_i - Ymean)}}{\sum{(x_i - Xmean)^2}}
+  \]
+  
+- **w0**: The intercept of the regression line, calculated as:  
+  \[
+  w0 = Ymean - (w1 \times Xmean)
+  \]
+
+These values represent the linear relationship between `x` and `y`.
+
+## Predicting `y` for a Given `x` Value
+
+```python
+X_input = int(input("Enter Price (X): "))
+Y_pred = (w1 * X_input) + w0
+```
+
+- This predicts the corresponding `y` (sales) for a given `x` (price) using the equation:  
+  \[
+  Y_{pred} = w1 \times X_{input} + w0
+  \]
+
+## Plotting the Data and Regression Line
+
+```python
+plt.scatter(x, y, color='blue', label='Data Points')
+x_values = np.array([min(x), max(x)])
+y_values = w1 * x_values + w0
+plt.plot(x_values, y_values, color='red', label='Regression Line')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.legend()
+plt.show()
+```
+
+- This plots the data points and the regression line using **matplotlib**.
+
+## R² Score Calculation
+
+```python
+sse = 0.0
+sst = 0.0
+
+for i in range(len(x)):
+    y_pred = (w1 * x[i]) + w0
+    sse += (y[i] - y_pred)**2
+    sst += (y[i] - Ymean)**2
+
+r2_score = 1 - (sse / sst)
+```
+
+- **SSE (Sum of Squared Errors)**: Measures the difference between the actual `y` values and the predicted `y` values.
+- **SST (Total Sum of Squares)**: Measures the difference between the actual `y` values and the mean of `y`.
+- **R² Score**: Represents the proportion of the variance in `y` explained by the model, calculated as:  
+  \[
+  R^2 = 1 - \frac{SSE}{SST}
+  \]
+  The higher the R², the better the model fits the data.
+
+## Mean Squared Error (MSE)
+
+```python
+mse = sse / len(x)
+```
+
+- **MSE** is calculated as the average of the squared errors. It indicates how far off the predictions might be on average.
+
+## Conclusion
+
+The script takes a price (`x`) as input, predicts the corresponding sales (`y`) using the linear regression model, and outputs the **R² score** and **MSE** to evaluate the model’s accuracy.
+```
