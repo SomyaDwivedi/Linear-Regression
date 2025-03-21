@@ -53,9 +53,9 @@ w0 = Ymean - (w1 * Xmean)
   \]
   
 - **w0**: The intercept of the regression line, calculated as:  
- \[
-  $$w0 = Ymean - (w1 \times Xmean)$$
-  \]
+
+   $$w0 = Ymean - (w1 \times Xmean)$$
+
 
 These values represent the linear relationship between `x` and `y`.
 
