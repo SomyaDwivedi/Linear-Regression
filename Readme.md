@@ -1,5 +1,4 @@
 
-```markdown
 # Linear Regression Model - Explanation of Formulas and Functions
 
 This Python script demonstrates a linear regression model to predict values based on a given dataset.
