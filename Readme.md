@@ -104,7 +104,7 @@ r2_score = 1 - (sse / sst)
 - **SST (Total Sum of Squares)**: Measures the difference between the actual `y` values and the mean of `y`.
 - **R² Score**: Represents the proportion of the variance in `y` explained by the model, calculated as:  
   
-   $$R^2 = 1 - \frac{SSE}{SST}
+   $$R^2 = 1 - \frac{SSE}{SST}$$
 
   The higher the R², the better the model fits the data.
 
