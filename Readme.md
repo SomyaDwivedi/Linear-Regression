@@ -48,9 +48,9 @@ w0 = Ymean - (w1 * Xmean)
 ```
 
 - **w1**: The slope of the regression line, calculated using the formula:  
-  \[
-  w1 = \frac{\sum{(x_i - Xmean)(y_i - Ymean)}}{\sum{(x_i - Xmean)^2}}
-  \]
+  
+   $$w1 = \frac{\sum{(x_i - Xmean)(y_i - Ymean)}}{\sum{(x_i - Xmean)^2}}$$
+  
   
 - **w0**: The intercept of the regression line, calculated as:  
 
@@ -67,9 +67,9 @@ Y_pred = (w1 * X_input) + w0
 ```
 
 - This predicts the corresponding `y` (sales) for a given `x` (price) using the equation:  
-  \[
-  Y_{pred} = w1 \times X_{input} + w0
-  \]
+ 
+   $$Y_{pred} = w1 \times X_{input} + w0$$
+ 
 
 ## Plotting the Data and Regression Line
 
@@ -103,9 +103,9 @@ r2_score = 1 - (sse / sst)
 - **SSE (Sum of Squared Errors)**: Measures the difference between the actual `y` values and the predicted `y` values.
 - **SST (Total Sum of Squares)**: Measures the difference between the actual `y` values and the mean of `y`.
 - **R² Score**: Represents the proportion of the variance in `y` explained by the model, calculated as:  
-  \[
-  R^2 = 1 - \frac{SSE}{SST}
-  \]
+  
+   $$R^2 = 1 - \frac{SSE}{SST}
+
   The higher the R², the better the model fits the data.
 
 ## Mean Squared Error (MSE)
