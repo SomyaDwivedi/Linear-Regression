@@ -119,4 +119,4 @@ mse = sse / len(x)
 ## Conclusion
 
 The script takes a price (`x`) as input, predicts the corresponding sales (`y`) using the linear regression model, and outputs the **R² score** and **MSE** to evaluate the model’s accuracy.
-```
+
